@@ -20,8 +20,8 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 data class Notebook(
-    val title: String = "",
-    val description: String = ""
+        val title: String = "",
+        val description: String = ""
 )
 
 class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var fireStore: FirebaseFirestore
     private lateinit var rcNotesView: RecyclerView
-    private lateinit var forgotPasswordTextView: TextView
+   // private lateinit var forgotPasswordTextView: TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,13 +41,13 @@ class MainActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         fireStore = Firebase.firestore
         rcNotesView = findViewById(R.id.rcNotesView)
-        forgotPasswordTextView = findViewById(R.id.forgotPasswordTextView)
+       // forgotPasswordTextView = findViewById(R.id.forgotPasswordTextView)
 
 
         val notesCollectionQuery = fireStore.collection("Notebook")
 
         val options = FirestoreRecyclerOptions.Builder<Notebook>().setQuery(notesCollectionQuery, Notebook::class.java)
-            .setLifecycleOwner(this).build()
+                .setLifecycleOwner(this).build()
 
         val adapter = object: FirestoreRecyclerAdapter<Notebook, NoteViewHolder>(options) {
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
@@ -86,26 +86,26 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
         else if ( item.itemId == R.id.changePassword ) {
-            forgotPasswordTextView.setOnClickListener {
-                val intent = Intent(this, UpdatePasswordActivity::class.java)
+            //forgotPasswordTextView.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
                 startActivity(intent)
             }
-        }
+
         else if ( item.itemId == R.id.mNewNote ) {
             showActionDialog()
         }
-    return super.onOptionsItemSelected(item)
+        return super.onOptionsItemSelected(item)
     }
 
     private fun showActionDialog() {
         val editText = EditText(this)
 
         val dialog = AlertDialog.Builder(this)
-            .setTitle("Create a Note")
-            .setView(editText)
-            .setNegativeButton("Cancel", null)
-            .setPositiveButton("OK", null)
-            .show()
+                .setTitle("Create a Note")
+                .setView(editText)
+                .setNegativeButton("Cancel", null)
+                .setPositiveButton("OK", null)
+                .show()
 
 
         dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener {
@@ -128,5 +128,3 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-
-
