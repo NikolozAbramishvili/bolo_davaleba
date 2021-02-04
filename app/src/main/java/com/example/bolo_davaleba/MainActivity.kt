@@ -31,8 +31,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var fireStore: FirebaseFirestore
     private lateinit var rcNotesView: RecyclerView
-   // private lateinit var forgotPasswordTextView: TextView
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +39,6 @@ class MainActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         fireStore = Firebase.firestore
         rcNotesView = findViewById(R.id.rcNotesView)
-       // forgotPasswordTextView = findViewById(R.id.forgotPasswordTextView)
-
 
         val notesCollectionQuery = fireStore.collection("Notebook")
 
@@ -86,9 +82,7 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
         else if ( item.itemId == R.id.changePassword ) {
-            //forgotPasswordTextView.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
-                startActivity(intent)
+            startActivity(Intent(this, UpdatePasswordActivity::class.java))
             }
 
         else if ( item.itemId == R.id.mNewNote ) {
@@ -128,3 +122,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+
